@@ -79,7 +79,7 @@ EOF
 ```
 
 ```
-kubectl apply -f dmz.yaml
+kubectl apply -f https://raw.githubusercontent.com/n1g3ld0uglas/CCSecOps/main/ZBA/dmz.yaml
 ```
 
 # After the DMZ, we need a Trusted Zone
@@ -124,7 +124,7 @@ EOF
 ```
 
 ```
-kubectl apply -f trusted.yaml
+kubectl apply -f https://raw.githubusercontent.com/n1g3ld0uglas/CCSecOps/main/ZBA/trusted.yaml
 ```
 
 # Finally, we configure the Restricted Zone
@@ -165,7 +165,7 @@ EOF
 ```
 
 ```
-kubectl apply -f restricted.yaml
+kubectl apply -f https://raw.githubusercontent.com/n1g3ld0uglas/CCSecOps/main/ZBA/restricted.yaml
 ```
 
 # Subscribing to a malicious threatfeed
@@ -173,34 +173,6 @@ Project Calico simplifies the process of dynamic threat feed subscription via a 
 A network set resource represents an arbitrary set of IP subnetworks/CIDRs, allowing it to be matched by Calico policy. 
 Network sets are useful for applying policy to traffic coming from (or going to) external, non-Calico, networks.
 https://docs.tigera.io/threat/suspicious-ips
-
-```
-cat << EOF > feodo-tracker.yaml
-apiVersion: projectcalico.org/v3
-kind: GlobalThreatFeed
-metadata:
-  name: feodo-tracker
-spec:
-  content: IPSet
-  pull:
-    http:
-      url: https://feodotracker.abuse.ch/downloads/ipblocklist.txt
-EOF
-```
-
-As always, don't forget to add the feed to your cluster.
-
-```
-kubectl apply -f feodo-tracker.yaml
-```
-
-This pulls updates using the default period of once per day. 
-See the Global Resource Threat Feed API for all configuration options:
-https://docs.tigera.io/reference/resources/globalthreatfeed
-
-# Creating a GlobalNetworkSet
-
-Edit the feodo-tracker.yaml to include a globalNetworkSet stanza:
 
 ```
 cat << EOF > feodo-tracker.yaml
