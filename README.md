@@ -192,7 +192,7 @@ EOF
 ```
 
 ```
-kubectl apply -f feodo-tracker.yaml
+kubectl apply -f https://raw.githubusercontent.com/n1g3ld0uglas/CCSecOps/main/ThreatFeeds/feodo-tracker.yaml
 ```
 
 Verify the GlobalNetworkSet is configured correctly:
@@ -217,7 +217,7 @@ EOF
 ```
 
 ```
-kubectl apply -f security.yaml
+kubectl apply -f https://raw.githubusercontent.com/n1g3ld0uglas/CCSecOps/main/Tiers/security.yaml
 ```
 
 Notice how the below 'block-feodo' policy is related to the 'security' tier - name: security.block-feodo
@@ -248,7 +248,25 @@ EOF
 ```
 
 ```
-kubectl apply -f feodo-policy.yaml
+kubectl apply -f https://raw.githubusercontent.com/n1g3ld0uglas/CCSecOps/main/SecurityPolicies/block-feodo.yaml
+```
+
+# Build policies through the Policy Recommendation Engine
+We will start by creating a tier called 'development'.
+
+```
+cat << EOF > development.yaml
+apiVersion: projectcalico.org/v3
+kind: Tier
+metadata:
+  name: development
+spec:
+  order: 500
+EOF  
+```
+
+```
+kubectl apply -f https://raw.githubusercontent.com/n1g3ld0uglas/CCSecOps/main/Tiers/development.yaml
 ```
 
 # Deploying a rogue pod into the hardened environment
