@@ -228,6 +228,11 @@ EOF
 kubectl apply -f https://raw.githubusercontent.com/n1g3ld0uglas/CCSecOps/main/Tiers/security.yaml
 ```
 
+If DNS traffic is blocked to the storefront namespace, we will need to allow DNS via this policy:
+
+```
+kubectl apply -f https://raw.githubusercontent.com/n1g3ld0uglas/CCSecOps/main/SecurityPolicies/dns-allow.yaml
+```
 
 Notice how the below 'block-feodo' policy is related to the 'security' tier - name: security.block-feodo
 
