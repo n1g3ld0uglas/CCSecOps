@@ -220,6 +220,7 @@ EOF
 kubectl apply -f https://raw.githubusercontent.com/n1g3ld0uglas/CCSecOps/main/Tiers/security.yaml
 ```
 
+
 Notice how the below 'block-feodo' policy is related to the 'security' tier - name: security.block-feodo
 
 ```
