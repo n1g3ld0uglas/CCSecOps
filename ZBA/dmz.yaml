@@ -11,7 +11,8 @@ spec:
   ingress:
     - action: Allow
       source:
-        selector: type == "public"
+        nets:
+          - 18.0.0.0/16
       destination: {}
     - action: Deny
       source: {}
