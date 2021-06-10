@@ -270,6 +270,63 @@ EOF
 kubectl apply -f https://raw.githubusercontent.com/n1g3ld0uglas/CCSecOps/main/Tiers/development.yaml
 ```
 
+# Sample Staged Network Policy via Policy Recommendation Engine
+
+
+```
+INSERT HERE
+```
+
+
+# SAMPLE Anomaly Detection Scripts
+
+For the management or standalone cluster:
+```
+curl https://docs.tigera.io/manifests/threatdef/ad-jobs-deployment.yaml -O
+```
+
+For the managed cluster:
+```
+curl https://docs.tigera.io/manifests/threatdef/ad-jobs-deployment-managed.yaml -O
+```
+
+Since we are managing a standalone cluster, we insert your cluster name into the 'ad-jobs-deployment' YAML file:
+```
+sed -i 's/CLUSTER_NAME/tigera-internal-managed-10-0-1-118/g' ad-jobs-deployment.yaml
+```
+
+Confirm the changes were applied within the YAML file:
+```
+cat ad-jobs-deployment.yaml | grep tigera-internal-managed-10-0-1-118
+```
+
+For the management or standalone cluster, make this change:
+```
+kubectl apply -f ad-jobs-deployment.yaml
+```
+
+You can configure the jobs using the environment variables. 
+
+```
+env:
+ - name: AD_max_docs
+   value: "2000000"
+ - name: AD_train_interval_minutes
+   value: "20"
+```
+
+You can use vi to make changes to your deployment manifest (the yaml file):
+
+```
+vi ad-jobs-deployment.yaml
+```
+
+For a list of jobs are their respective values, visit this Tigera doc:
+https://docs.tigera.io/threat/anomaly-detection/customizing
+
+
+
+
 # Deploying a rogue pod into the hardened environment
 
 Run the following command to creare a rogue workload that will probe for vulnerable or exposed services within the cluster:
