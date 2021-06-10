@@ -416,6 +416,11 @@ kubectl logs <pod_name> -n tigera-intrusion-detection | grep INFO
 You can see that the jobs go through training cycles. 
 The more cycles it runs, the more it can learn from your data.
 
+If the intrusion detection feature is not working, ensure the license is read (I'm currently not running a valid license):
+```
+kubectl logs intrusion-detection-controller-c544bb64f-rffq2 -n tigera-intrusion-detection | grep Error
+```
+
 # Anonymization Attacks
 
 Add threat feed to the cluster. For EJR VPN:
