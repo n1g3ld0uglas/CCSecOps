@@ -277,13 +277,70 @@ kubectl apply -f https://raw.githubusercontent.com/n1g3ld0uglas/CCSecOps/main/Ti
 
 # Sample Staged Network Policy via Policy Recommendation Engine
 
+Security is often not the first thing you think about when configuring a cluster. By the time you decide to segment your traffic, there are dozens of services already running and connecting to each other. Setting up your security policy in a running environment can be very difficult, and becomes more complex the larger your cluster grows.
+
+<img width="529" alt="Screenshot 2021-06-09 at 21 28 55" src="https://user-images.githubusercontent.com/82048393/121503927-6f75a800-c9d9-11eb-87ff-04c9caab739c.png">
+
+The platform logs all traffic flows and uses this data to form a baseline of traffic flows among microservices. The baseline is then used to generate a set of recommended policies that will lock down your cluster while maintaining those existing connections. These policies can subsequently be reviewed and modified, if necessary, before staging or enforcing in your cluster.
 
 ```
-INSERT HERE
+apiVersion: projectcalico.org/v3
+kind: StagedNetworkPolicy
+metadata:
+  name: default.acme-microservice1-57c477fdd7
+  namespace: acme
+spec:
+  tier: default
+  selector: app == "acme-microservice1"
+  serviceAccountSelector: ''
+  ingress:
+    - action: Allow
+      protocol: TCP
+      source:
+        selector: app == "acme-microservice2"
+      destination:
+        ports:
+          - '8080'
+  egress:
+    - action: Allow
+      protocol: TCP
+      source: {}
+      destination:
+        selector: app == "acme-microservice2"
+        ports:
+          - '8080'
+    - action: Allow
+      protocol: UDP
+      source: {}
+      destination:
+        selector: k8s-app == "kube-dns"
+        namespaceSelector: projectcalico.org/name == "kube-system"
+        ports:
+          - '53'
+  types:
+    - Ingress
+    - Egress
 ```
 
+NB: There is no need to apply this YAML file as we can do this easily from the web user interface.
+Recommended policies are registered in the 'default' tier. You can easily drag into the 'development' tier.
 
-# SAMPLE Anomaly Detection Scripts
+
+ie:
+```
+apiVersion: projectcalico.org/v3
+kind: StagedNetworkPolicy
+metadata:
+  name: development.acme-microservice1-57c477fdd7
+  namespace: acme
+```
+
+This will not break the policy - which allows for simplified segmentation of policies.
+We can follow the same process for our 2nd 'acme' microservice'.
+
+
+
+# Anomaly Detection Jobs
 
 For the management or standalone cluster:
 ```
