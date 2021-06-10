@@ -475,10 +475,29 @@ kubectl delete -f https://installer.calicocloud.io/rogue-demo.yaml -n storefront
 
 
 # Configuring Honeypods
+
+Create the Tigera-Internal namespace for this honeypod service:
+```
+kubectl apply -f https://docs.tigera.io/manifests/threatdef/honeypod/common.yaml
+```
+
 Get the Tigera Pull Secret from the Tigera Guardian namespace:
 ```
 kubectl get secrets tigera-pull-secret -n tigera-guardian -o yaml
 ```
+
+We need to get the Tigera pull secret output yaml, and put it into a 'pull-secret.yaml' file:
+```
+kubectl get secret tigera-pull-secret -n tigera-guardian -o yaml > pull-secret.yaml
+```
+
+Apply changes to the below pull secret
+```
+kubectl apply -f pull-secret.yaml
+```
+
+
+
 
 
 # Quarantining the rogue pod
