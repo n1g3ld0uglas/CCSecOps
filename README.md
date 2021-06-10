@@ -59,7 +59,8 @@ spec:
   ingress:
     - action: Allow
       source:
-        selector: type == "public"
+        nets:
+          - 18.0.0.0/16
       destination: {}
     - action: Deny
       source: {}
@@ -110,6 +111,10 @@ spec:
       source: {}
       destination: {}
   egress:
+    - action: Allow
+      source: {}
+      destination:
+        selector: fw-zone == "trusted"
     - action: Allow
       source: {}
       destination:
