@@ -248,6 +248,11 @@ spec:
 EOF
 ```
 
+Applies to anything that IS NOT listed with the namespace selector = 'acme'
+```
+selector: projectcalico.org/namespace != "acme"
+```
+
 ```
 kubectl apply -f https://raw.githubusercontent.com/n1g3ld0uglas/CCSecOps/main/SecurityPolicies/block-feodo.yaml
 ```
