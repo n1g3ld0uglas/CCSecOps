@@ -378,6 +378,10 @@ env:
    value: "2000000"
  - name: AD_train_interval_minutes
    value: "20"
+ - name: AD_port_scan_threshold
+   value: "500"
+ - name: AD_DnsLatency_IsolationForest_n_estimators
+   value: "100"
 ```
 
 You can use vi to make changes to your deployment manifest (the yaml file):
@@ -389,8 +393,55 @@ vi ad-jobs-deployment.yaml
 For a list of jobs are their respective values, visit this Tigera doc:
 https://docs.tigera.io/threat/anomaly-detection/customizing
 
+The below anomaly detection jobs run indefinitely:
+```
+kubectl get pods -n tigera-intrusion-detection -l app=anomaly-detection
+```
+
+Use the pod logs to monitor the job execution and health.
+```
+kubectl logs <pod_name> -n tigera-intrusion-detection | grep INFO
+```
+
+You can see that the jobs go through training cycles. 
+The more cycles it runs, the more it can learn from your data.
+
+# Anonymization Attacks
+
+Add threat feed to the cluster. For EJR VPN:
+```
+kubectl apply -f https://docs.tigera.io/manifests/threatdef/ejr-vpn.yaml
+```
+
+For Tor Bulk Exit Feed:
+```
+kubectl apply -f https://docs.tigera.io/manifests/threatdef/tor-exit-feed.yaml
+```
+
+Additionally, feeds can be checked using following command:
+```
+kubectl get globalthreatfeeds 
+```
+
+At this point, we should have 3 threat feeds running in our cluster with Calico Enterprise:
+
+```
+NAME                 CREATED AT
+ejr-vpn              2021-06-10T10:32:55Z
+feodo-tracker        2021-06-10T09:37:36Z
+tor-bulk-exit-list   2021-06-10T10:33:06Z
+```
 
 
+Run the below command to confirm the source URL of your threat feed
+```
+kubectl get globalthreatfeeds.tor-bulk-exit-list -o yaml
+```
+
+It should be:
+```
+https://check.torproject.org/cgi-bin/TorBulkExitList.py?ip=1.1.1.1
+```
 
 # Deploying a rogue pod into the hardened environment
 
