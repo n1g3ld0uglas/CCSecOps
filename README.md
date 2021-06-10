@@ -488,23 +488,23 @@ kubectl apply -f https://docs.tigera.io/manifests/threatdef/honeypod/common.yaml
 
 Get the Tigera Pull Secret from the Tigera Guardian namespace:
 ```
-kubectl get secrets tigera-pull-secret -n tigera-guardian -o yaml
+kubectl get secrets tigera-pull-secret -n tigera-guardian -o json
 ```
 
 We need to get the Tigera pull secret output yaml, and put it into a 'pull-secret.yaml' file:
 ```
-kubectl get secret tigera-pull-secret -n tigera-guardian -o yaml > pull-secret.yaml
+kubectl get secret tigera-pull-secret -n tigera-guardian -o yaml > pull-secret.json
 ```
 
 Edit the below pull secret - removing all metadata from creationTimestamp down to the name of the tigera-pull-scret. Use Capital 'D' and lower-case 'd' while in insert mode of VI to remove this content
 
 ```
-vi pull-secret.yaml
+vi pull-secret.json
 ```
 
 Apply changes to the below pull secret
 ```
-kubectl apply -f pull-secret.yaml
+kubectl apply -f pull-secret.json
 ```
 
 Add tigera-pull-secret into the namespace tigera-internal
