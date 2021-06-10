@@ -1,0 +1,17 @@
+apiVersion: v1
+data:
+  .dockerconfigjson: 
+kind: Secret
+metadata:
+  name: tigera-pull-secret
+  namespace: tigera-internal
+  ownerReferences:
+  - apiVersion: operator.tigera.io/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: ManagementClusterConnection
+    name: tigera-secure
+    uid: 50a514e6-7771-4a53-a2d0-369e11fc9b8f
+  resourceVersion: "3937"
+  uid: 31af5c25-2736-4940-989c-87f2654e4db4
+type: kubernetes.io/dockerconfigjson
