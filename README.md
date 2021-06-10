@@ -468,6 +468,14 @@ After you are done evaluating your network policies in with the rogue pod, you c
 kubectl delete -f https://installer.calicocloud.io/rogue-demo.yaml -n storefront
 ```
 
+
+# Configuring Honeypods
+Get the Tigera Pull Secret from the Tigera Guardian namespace:
+```
+kubectl get secrets tigera-pull-secret -n tigera-guardian -o yaml
+```
+
+
 # Quarantining the rogue pod
 Traditionally, when we block a network packet we lose all context of the threat actor.
 Calico Network Policies allow you to block AND log the activity, therefore tracking the rich metadata surrounding the malicious actor.
