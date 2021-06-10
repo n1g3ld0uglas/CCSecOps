@@ -229,7 +229,7 @@ Notice how the below 'block-feodo' policy is related to the 'security' tier - na
 ```
 cat << EOF > feodo-policy.yaml
 apiVersion: projectcalico.org/v3
-kind: GlobalNetworkPolicy
+kind: StagedGlobalNetworkPolicy
 metadata:
   name: security.block-feodo
 spec:
