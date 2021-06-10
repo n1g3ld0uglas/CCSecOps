@@ -508,7 +508,7 @@ EOF
 ```
 
 ```
-kubectl apply -f quarantine.yaml
+kubectl apply -f https://raw.githubusercontent.com/n1g3ld0uglas/CCSecOps/main/SecurityPolicies/quarantine.yaml
 ```
 
 Add the quarantine label to our rogue pod, and monitor changes to the quarantine policy.
@@ -548,5 +548,5 @@ EOF
 ```
 
 ```
-kubectl apply -f default-deny.yaml
+kubectl apply -f https://raw.githubusercontent.com/n1g3ld0uglas/CCSecOps/main/ZBA/default-deny.yaml
 ```
