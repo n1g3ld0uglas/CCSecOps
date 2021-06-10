@@ -513,8 +513,52 @@ Expose a empty pod that can only be reached via PodIP, we can see when the attac
 kubectl apply -f https://docs.tigera.io/manifests/threatdef/honeypod/ip-enum.yaml 
 ```
 
+# Exposed service (nginx)
+Expose a nginx service that serves a generic page. The pod can be discovered via ClusterIP or DNS lookup. 
+An unreachable service tigera-dashboard-internal-service is created to entice the attacker to find and reach, tigera-dashboard-internal-debug:
+```
+kubectl apply -f https://docs.tigera.io/manifests/threatdef/honeypod/expose-svc.yaml 
+```
 
+# Vulnerable Service (MySQL)
+Expose a SQL service that contains an empty database with easy access. 
+The pod can be discovered via ClusterIP or DNS lookup:
+```
+kubectl apply -f https://docs.tigera.io/manifests/threatdef/honeypod/vuln-svc.yaml 
+```
 
+Verify the deployment - ensure that honeypods are running within the 'tigera-internal' namespace:
+```
+kubectl get pods -n tigera-internal -o wide
+```
+
+And verify that global alerts are set for honeypods:
+```
+kubectl get globalalerts
+```
+
+You can find the vulnerable service pods:
+```
+kubectl get services -n tigera-internal -o wide
+```
+
+Make a cURL request against the vulnerable dashboard pod on port '8080':
+```
+curl http://192.168.0.147:8080
+```
+Dashboard service listens on port '443':
+```
+curl http://10.99.111.151:443
+```
+Internal debug service listens on port '8888' (I think):
+```
+curl http://10.102.178.219:8888
+```
+
+Once you have verified that the honeypods are installed and working, it is recommended to remove the pull secret from the namespace:
+```
+kubectl delete secret tigera-pull-secret -n tigera-internal
+```
 
 # Quarantining the rogue pod
 Traditionally, when we block a network packet we lose all context of the threat actor.
