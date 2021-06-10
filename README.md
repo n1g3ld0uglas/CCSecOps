@@ -267,7 +267,7 @@ kind: Tier
 metadata:
   name: development
 spec:
-  order: 500
+  order: 700
 EOF  
 ```
 
