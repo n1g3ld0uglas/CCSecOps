@@ -450,7 +450,7 @@ tor-bulk-exit-list   2021-06-10T10:33:06Z
 
 Run the below command to confirm the source URL of your threat feed
 ```
-kubectl get globalthreatfeeds.tor-bulk-exit-list -o yaml
+kubectl get globalthreatfeeds tor-bulk-exit-list --output jsonpath='{ .spec.pull.http.url }'
 ```
 
 It should be:
