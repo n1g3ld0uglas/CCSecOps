@@ -24,6 +24,10 @@ spec:
     - action: Allow
       source: {}
       destination:
+        selector: fw-zone == "trusted"
+    - action: Allow
+      source: {}
+      destination:
         selector: fw-zone == "restricted"
     - action: Deny
       source: {}
