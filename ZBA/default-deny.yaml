@@ -1,0 +1,16 @@
+apiVersion: projectcalico.org/v3
+kind: StagedGlobalNetworkPolicy
+metadata:
+  name: default.default-deny
+spec:
+  tier: default
+  selector: all()
+  namespaceSelector: ''
+  serviceAccountSelector: ''
+  doNotTrack: false
+  applyOnForward: false
+  preDNAT: false
+  types:
+    - Ingress
+    - Egress
+EOF
