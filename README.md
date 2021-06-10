@@ -491,11 +491,27 @@ We need to get the Tigera pull secret output yaml, and put it into a 'pull-secre
 kubectl get secret tigera-pull-secret -n tigera-guardian -o yaml > pull-secret.yaml
 ```
 
+Edit the below pull secret - removing all metadata from creationTimestamp down to the name of the tigera-pull-scret. Use Capital 'D' and lower-case 'd' while in insert mode of VI to remove this content
+
+```
+vi pull-secret.yaml
+```
+
 Apply changes to the below pull secret
 ```
 kubectl apply -f pull-secret.yaml
 ```
 
+Add tigera-pull-secret into the namespace tigera-internal
+```
+kubectl create secret generic tigera-pull-secret --from-file=.dockerconfigjson=pull-secret.json --type=kubernetes.io/dockerconfigjson -n tigera-internal
+```
+
+# IP Enumeration
+Expose a empty pod that can only be reached via PodIP, we can see when the attacker is probing the pod network:
+```
+kubectl apply -f https://docs.tigera.io/manifests/threatdef/honeypod/ip-enum.yaml 
+```
 
 
 
