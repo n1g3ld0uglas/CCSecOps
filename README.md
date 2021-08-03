@@ -661,6 +661,16 @@ Apply the policies for the application
 kubectl apply -f https://raw.githubusercontent.com/tigera-solutions/tigera-eks-workshop/main/demo/boutiqueshop/policies.yaml
 ```
 
+Delete the manifests for the applications
+```
+kubectl delete -f https://raw.githubusercontent.com/GoogleCloudPlatform/microservices-demo/master/release/kubernetes-manifests.yaml
+```
+
+Delete the policies for the application
+```
+kubectl delete -f https://raw.githubusercontent.com/tigera-solutions/tigera-eks-workshop/main/demo/boutiqueshop/policies.yaml
+```
+
 # RBAC login for Calico Enterprise
 
 Login with full network admin priveleges:
