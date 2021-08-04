@@ -1,0 +1,26 @@
+apiVersion: projectcalico.org/v3
+kind: GlobalNetworkPolicy
+metadata:
+  name: security.anonymization-feed
+spec:
+  tier: security
+  order: 210
+  selector: ''
+  namespaceSelector: ''
+  serviceAccountSelector: ''
+  ingress:
+    - action: Deny
+      source:
+        selector: feed == "ejr-vpn"||feed == "tor"
+      destination: {}
+  egress:
+    - action: Deny
+      source: {}
+      destination:
+        selector: feed == "ejr-vpn"||feed == "tor"
+  doNotTrack: false
+  applyOnForward: false
+  preDNAT: false
+  types:
+    - Ingress
+    - Egress
