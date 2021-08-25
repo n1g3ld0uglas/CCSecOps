@@ -661,6 +661,8 @@ Apply the policies for the application
 kubectl apply -f https://raw.githubusercontent.com/tigera-solutions/tigera-eks-workshop/main/demo/boutiqueshop/policies.yaml
 ```
 
+# Removing the Google Boutique Application
+
 Delete the manifests for the applications
 ```
 kubectl delete -f https://raw.githubusercontent.com/GoogleCloudPlatform/microservices-demo/master/release/kubernetes-manifests.yaml
@@ -673,12 +675,12 @@ kubectl delete -f https://raw.githubusercontent.com/tigera-solutions/tigera-eks-
 
 # RBAC login for Calico Enterprise
 
-Login with full network admin priveleges:
+Login with ```full``` network admin priveleges:
 ```
 kubectl get secret $(kubectl get serviceaccount nigel -o jsonpath='{range .secrets[*]}{.name}{"\n"}{end}' | grep token) -o go-template='{{.data.token | base64decode}}' && echo
 ```
 
-Login with limitied read-only user priveleges:
+Login with ```limitied``` read-only user priveleges:
 ```
 kubectl get secret $(kubectl get serviceaccount taher -o jsonpath='{range .secrets[*]}{.name}{"\n"}{end}' | grep token) -o go-template='{{.data.token | base64decode}}' && echo
 ```
