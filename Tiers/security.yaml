@@ -3,4 +3,4 @@ kind: Tier
 metadata:
   name: security
 spec:
-  order: 600
+  order: 500
