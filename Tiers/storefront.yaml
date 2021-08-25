@@ -1,6 +1,6 @@
 apiVersion: projectcalico.org/v3
 kind: Tier
 metadata:
-  name: storefront
+  name: devops
 spec:
   order: 600
