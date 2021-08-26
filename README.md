@@ -649,29 +649,38 @@ kubectl apply -f https://raw.githubusercontent.com/n1g3ld0uglas/CCSecOps/main/ZB
 ```
 
 
-# Adding the Google Boutique Application
+## Adding the Google Boutique Application
 
-Apply the manifests for the applications
+#### Apply the manifests for the applications
 ```
 kubectl apply -f https://raw.githubusercontent.com/GoogleCloudPlatform/microservices-demo/master/release/kubernetes-manifests.yaml
 ```
 
-Apply the policies for the application
+The `Flow Visualizations` view shows all point-to-point flows of those new workloads in our cluster. 
+
+<img width="1569" alt="7" src="https://user-images.githubusercontent.com/82048393/124572877-ebc8a300-de40-11eb-80d6-2ae40ead9c1a.png">
+
+It allows you to see the cluster traffic from the network point of view. We can also get policy recommendations from this chart.
+
+#### Apply the policies for the application
 ```
 kubectl apply -f https://raw.githubusercontent.com/tigera-solutions/tigera-eks-workshop/main/demo/boutiqueshop/policies.yaml
 ```
 
-# Removing the Google Boutique Application
+## Removing the Google Boutique Application
 
-Delete the manifests for the applications
+#### Delete the manifests for the applications
 ```
 kubectl delete -f https://raw.githubusercontent.com/GoogleCloudPlatform/microservices-demo/master/release/kubernetes-manifests.yaml
 ```
 
-Delete the policies for the application
+#### Delete the policies for the application
 ```
 kubectl delete -f https://raw.githubusercontent.com/tigera-solutions/tigera-eks-workshop/main/demo/boutiqueshop/policies.yaml
 ```
+
+If you were to re-add these workloads it would retain an audit trail of all changes made to a policy (Create, Read, Update and Delete). According to PCI controls numbered ```10.1, 10.2, 10.3```, we need to implement and record audit trail for all access to system components. With respect to Calico, we must record all policy changes that impact connectivity to/from in-scope assets with Calico.
+
 
 # RBAC login for Calico Enterprise
 
