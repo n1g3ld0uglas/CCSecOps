@@ -1,10 +1,10 @@
 apiVersion: projectcalico.org/v3
 kind: NetworkPolicy
 metadata:
-  name: default.trusted
+  name: product.trusted
   namespace: storefront
 spec:
-  tier: default
+  tier: product
   order: 10
   selector: fw-zone == "trusted"
   serviceAccountSelector: ''
