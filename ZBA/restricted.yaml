@@ -1,10 +1,10 @@
 apiVersion: projectcalico.org/v3
 kind: NetworkPolicy
 metadata:
-  name: default.restricted
+  name: product.restricted
   namespace: storefront
 spec:
-  tier: default
+  tier: product
   order: 20
   selector: fw-zone == "restricted"
   serviceAccountSelector: ''
