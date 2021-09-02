@@ -271,21 +271,21 @@ kubectl apply -f https://raw.githubusercontent.com/n1g3ld0uglas/CCSecOps/main/Se
 ```
 
 # Build policies through the Policy Recommendation Engine
-We will start by creating a tier called 'development'.
+We will start by creating a tier called 'product'.
 
 ```
-cat << EOF > development.yaml
+cat << EOF > product.yaml
 apiVersion: projectcalico.org/v3
 kind: Tier
 metadata:
-  name: development
+  name: product
 spec:
   order: 700
 EOF  
 ```
 
 ```
-kubectl apply -f https://raw.githubusercontent.com/n1g3ld0uglas/CCSecOps/main/Tiers/development.yaml
+kubectl apply -f https://raw.githubusercontent.com/n1g3ld0uglas/CCSecOps/main/Tiers/product.yaml
 ```
 
 # Sample Staged Network Policy via Policy Recommendation Engine
