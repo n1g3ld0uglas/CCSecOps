@@ -56,12 +56,26 @@ If your cluster does not have applications, you can use the following storefront
 kubectl apply -f https://installer.calicocloud.io/storefront-demo.yaml
 ```
 
-Check which pods are running within the newly added 'Storefront' namespace. 
-Showing the labels associated with the pods will help us later with policy configuration.
+<img width="881" alt="Screenshot 2021-12-15 at 22 29 31" src="https://user-images.githubusercontent.com/82048393/146274847-6675ee75-04b1-4b78-a313-121a7a56f579.png">
+
+
+Check which pods are running with a valid IP address within the newly added 'Storefront' namespace:
+```
+kubectl get pods -n storefront -o wide
+```
+
+<img width="1163" alt="Screenshot 2021-12-15 at 22 32 38" src="https://user-images.githubusercontent.com/82048393/146275225-a5136568-b07d-4ce1-8a29-cb00c6ffe1ae.png">
+
+
+Since pods are ephemeral, we plan to use the fixed labs assigned to pods for our poicy implementation
 
 ```
-kubectl get pod -n storefront --show-labels
+kubectl get pods -n storefront --show-labels
 ```
+
+<img width="1163" alt="Screenshot 2021-12-15 at 22 32 54" src="https://user-images.githubusercontent.com/82048393/146275274-d4dee3f9-f42c-4818-aae6-3e22cc71dc2b.png">
+
+
 
 # Creating a zone-based architecture:
 One of the most widely adopted deployment models with traditional firewalls is using a zone-based architecture. This
