@@ -15,6 +15,10 @@ CLUSTER_PREFIX='nigel-azure-aks'
 curl -s https://installer.calicocloud.io/*******_******-management_install.sh | sed -e "s/CLUSTER_NAME=.*$/CLUSTER_NAME=${CLUSTER_PREFIX}/1" | bash
 ```
 
+Once connected, confirm all pods are running correctly:
+```
+kubectl get pods -A
+```
 
 # Modify the Felix agent log flush interval
 Should help us see data update quicker during our workshop. This is not a recommended configuration for production environments.
