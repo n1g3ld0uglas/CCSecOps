@@ -9,6 +9,19 @@ Transparent mode is enabled by default via CLI (Make sure that we are using the 
 az aks create --resource-group nigelResourceGroup --name nigelAKSCluster --node-vm-size Standard_B2ms --node-count 3 --zones 1 2 3 --network-plugin azure
 ```
 
+Connect your subscription to the Azure CLI (if you have not done this already):
+```
+az account set --subscription 03cfb895-358d-4ad4-8aba-aeede8dbfc30
+```
+You can retrieve your cluster credentials and/or set the cluster context via the below command:
+```
+az aks get-credentials --resource-group nigelResourceGroup --name nigelAKSCluster
+```
+Confirm all pods are running in the ```kube-system``` namespace
+```
+kubectl get pods -A
+```
+
 Make the cluster name have a uniquely-indetifiable prefix when connected clusters to Calico Cloud:
 ```
 CLUSTER_PREFIX='nigel-azure-aks'
