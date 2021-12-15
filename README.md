@@ -1,13 +1,20 @@
-# CCSecOps
-This quickstart guide for Calico Network Policy and Security options for Kubernetes clusters is just an extension of Tigera's documentation for their Software-as-a-Service offering 'Calico Cloud' - https://docs.calicocloud.io/get-started/quickstart
+# Kubernetes Security Workshop for Azure AKS
 
-This guide also assumes that you have already created a supported Kubernetes cluster, have installed Project Calico installed on the master node, and have started a trial of Calico Cloud.
-
-At the time of writing this post, you can easily hook-up your existing cluster to Calico Cloud by running a single cURL command provided to you by the team at Tigera. The command should look similar to the below example:
-
+Create an empty resource group for your cluster
 ```
-curl -s https://installer.calicocloud.io/XYZ_your_business_install.sh | bash
+az group create --name nigelResourceGroup --location northeurope
 ```
+Transparent mode is enabled by default via CLI (Make sure that we are using the Azure CNI)
+```
+az aks create --resource-group nigelResourceGroup --name nigelAKSCluster --node-vm-size Standard_B2ms --node-count 3 --zones 1 2 3 --network-plugin azure
+```
+
+Make the cluster name have a uniquely-indetifiable prefix when connected clusters to Calico Cloud:
+```
+CLUSTER_PREFIX='nigel-azure-aks'
+curl -s https://installer.calicocloud.io/*******_******-management_install.sh | sed -e "s/CLUSTER_NAME=.*$/CLUSTER_NAME=${CLUSTER_PREFIX}/1" | bash
+```
+
 
 # Modify the Felix agent log flush interval
 Should help us see data update quicker during our workshop. This is not a recommended configuration for production environments.
