@@ -742,6 +742,7 @@ Login with ```limitied``` read-only user priveleges:
 kubectl get secret $(kubectl get serviceaccount taher -o jsonpath='{range .secrets[*]}{.name}{"\n"}{end}' | grep token) -o go-template='{{.data.token | base64decode}}' && echo
 ```
 
+# AKS Cluster Scaling
 
 When done with the cluster, you can shut it down:
 ```
