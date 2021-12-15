@@ -1,19 +1,19 @@
 # Kubernetes Security Workshop for Azure AKS
 
-Create an empty resource group for your cluster
+Create an empty ```resource group``` for your cluster
 ```
 az group create --name nigelResourceGroup --location northeurope
 ```
-Transparent mode is enabled by default via CLI (Make sure that we are using the Azure CNI)
+```Transparent mode``` is enabled by default via CLI (Make sure that we are using the Azure CNI)
 ```
 az aks create --resource-group nigelResourceGroup --name nigelAKSCluster --node-vm-size Standard_B2ms --node-count 3 --zones 1 2 3 --network-plugin azure
 ```
 
-Connect your subscription to the Azure CLI (if you have not done this already):
+Connect your ```subscription``` to the Azure CLI (if you have not done this already):
 ```
 az account set --subscription 03cfb895-358d-4ad4-8aba-aeede8dbfc30
 ```
-You can retrieve your cluster credentials and/or set the cluster context via the below command:
+You can retrieve your cluster credentials and/or set the cluster ```context``` via the below command:
 ```
 az aks get-credentials --resource-group nigelResourceGroup --name nigelAKSCluster
 ```
@@ -21,6 +21,9 @@ Confirm all pods are running in the ```kube-system``` namespace
 ```
 kubectl get pods -A
 ```
+<img width="844" alt="Screenshot 2021-12-15 at 22 13 20" src="https://user-images.githubusercontent.com/82048393/146273183-db7335e4-0147-4891-9244-fa3c822815bd.png">
+
+
 
 Make the cluster name have a uniquely-indetifiable prefix when connected clusters to Calico Cloud:
 ```
