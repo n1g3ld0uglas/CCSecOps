@@ -23,7 +23,7 @@ kubectl get pods -A
 ```
 <img width="844" alt="Screenshot 2021-12-15 at 22 13 20" src="https://user-images.githubusercontent.com/82048393/146273183-db7335e4-0147-4891-9244-fa3c822815bd.png">
 
-
+## Connect the cluster to Calico Cloud
 
 Make the cluster name have a uniquely-indetifiable prefix when connected clusters to Calico Cloud:
 ```
@@ -730,7 +730,7 @@ kubectl delete -f https://raw.githubusercontent.com/tigera-solutions/tigera-eks-
 If you were to re-add these workloads it would retain an audit trail of all changes made to a policy (Create, Read, Update and Delete). According to PCI controls numbered ```10.1, 10.2, 10.3```, we need to implement and record audit trail for all access to system components. With respect to Calico, we must record all policy changes that impact connectivity to/from in-scope assets with Calico.
 
 
-# RBAC login for Calico Enterprise
+## RBAC login for Calico Enterprise
 
 Login with ```full``` network admin priveleges:
 ```
@@ -742,14 +742,14 @@ Login with ```limitied``` read-only user priveleges:
 kubectl get secret $(kubectl get serviceaccount taher -o jsonpath='{range .secrets[*]}{.name}{"\n"}{end}' | grep token) -o go-template='{{.data.token | base64decode}}' && echo
 ```
 
-# AKS Cluster Scaling
+## AKS Cluster Scaling
 
 When done with the cluster, you can shut it down:
 ```
-az aks stop --name nigel-aks-cluster --resource-group nigel-aks-rg
+az aks stop --name nigelAKSCluster --resource-group nigelResourceGroup
 ```
 
 If you wish to restart your cluster with Calico Cloud, run the below command:
 ```
-az aks start --name nigel-aks-cluster --resource-group nigel-aks-rg
+az aks start --name nigelAKSCluster --resource-group nigelResourceGroup
 ```
