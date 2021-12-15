@@ -36,6 +36,9 @@ Once connected, confirm all pods are running correctly:
 kubectl get pods -A
 ```
 
+<img width="1301" alt="Screenshot 2021-12-15 at 22 23 29" src="https://user-images.githubusercontent.com/82048393/146274409-f3a39d8d-2140-4768-bafd-83cc607ae93b.png">
+
+
 # Modify the Felix agent log flush interval
 Should help us see data update quicker during our workshop. This is not a recommended configuration for production environments.
 
@@ -723,4 +726,15 @@ kubectl get secret $(kubectl get serviceaccount nigel -o jsonpath='{range .secre
 Login with ```limitied``` read-only user priveleges:
 ```
 kubectl get secret $(kubectl get serviceaccount taher -o jsonpath='{range .secrets[*]}{.name}{"\n"}{end}' | grep token) -o go-template='{{.data.token | base64decode}}' && echo
+```
+
+
+When done with the cluster, you can shut it down:
+```
+az aks stop --name nigel-aks-cluster --resource-group nigel-aks-rg
+```
+
+If you wish to restart your cluster with Calico Cloud, run the below command:
+```
+az aks start --name nigel-aks-cluster --resource-group nigel-aks-rg
 ```
