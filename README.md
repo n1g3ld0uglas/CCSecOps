@@ -744,6 +744,32 @@ kubectl get secret $(kubectl get serviceaccount taher -o jsonpath='{range .secre
 
 <br/>
 <br/>
+## Host Endpoint Protection:
+https://docs.tigera.io/v3.11/security/kubernetes-nodes
+### Enable Host Endpoint Protection (HEP's)
+
+To enable automatic host endpoints, edit the default KubeControllersConfiguration instance
+```
+kubectl patch kubecontrollersconfiguration default --patch='{"spec": {"controllers": {"node": {"hostEndpoint": {"autoCreate": "Enabled"}}}}}'
+```
+
+Confirm the host endpoints exist:
+```
+kubectl get heps -A
+```
+
+<img width="1191" alt="Screenshot 2021-12-16 at 13 49 35" src="https://user-images.githubusercontent.com/82048393/146384047-74a13081-5ec1-4ce9-a3a6-65e09b956c1c.png">
+
+<img width="1562" alt="Screenshot 2021-12-16 at 13 50 50" src="https://user-images.githubusercontent.com/82048393/146384226-94c03eaf-b506-401a-8942-2aa41abb0d3a.png">
+
+
+
+
+### Enable Host Endpoint Protection (HEP's) for external non-kubernetes hosts
+https://docs.tigera.io/getting-started/bare-metal/about
+
+<br/>
+<br/>
 
 ## Encrypt Traffic In-Transit
 AKS cluster nodes run Ubuntu with a kernel that has WireGuard installed already, so there is no manual installation required.
