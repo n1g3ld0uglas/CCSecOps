@@ -766,6 +766,9 @@ To disable WireGuard on all nodes modify the default Felix configuration. For ex
 ```
 kubectl patch felixconfiguration default --type='merge' -p '{"spec":{"wireguardEnabled":false}}'
 ```
+![Screenshot 2021-12-16 at 09 50 32](https://user-images.githubusercontent.com/82048393/146348967-4cf676b3-c66f-4cd5-8a67-ca1916485af4.png)
+
+
 
 <br/>
 <br/>
