@@ -766,7 +766,13 @@ kubectl get heps -A
 
 
 ### Enable Host Endpoint Protection (HEP's) for external non-kubernetes hosts
-https://docs.tigera.io/getting-started/bare-metal/about
+https://docs.tigera.io/getting-started/bare-metal/about <br/>
+
+![non-cluster-host](https://user-images.githubusercontent.com/82048393/146384570-b1497a07-0b20-4639-8e5f-6645519cbc24.png)
+
+For non-cluster hosts, you can secure host interfaces using ```host endpoints```. <br/>
+Host endpoints can have labels, and work the same as labels on pods/workload endpoints. <br/>
+The advantage is that you can write network policy rules to apply to both workload endpoints and host endpoints using label selectors; where each selector can refer to the either type (or be a mix of the two). For example, you can write a cluster-wide policy for non-cluster hosts that is immediately applied to every host.
 
 <br/>
 <br/>
