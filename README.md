@@ -742,6 +742,21 @@ Login with ```limitied``` read-only user priveleges:
 kubectl get secret $(kubectl get serviceaccount taher -o jsonpath='{range .secrets[*]}{.name}{"\n"}{end}' | grep token) -o go-template='{{.data.token | base64decode}}' && echo
 ```
 
+## Encrypt Traffic In-Transit
+AKS cluster nodes run Ubuntu with a kernel that has WireGuard installed already, so there is no manual installation required.
+
+### Enable Wireguard
+However, you will need to enable host-to-host encryption mode for WireGuard using the following command:
+```
+kubectl patch felixconfiguration default --type='merge' -p '{"spec":{"wireguardEnabled":true}}'
+```
+
+### Enable Wireguard Stastistics:
+To access wireguard statistics, prometheus stats in Felix configuration should be turned on. A quick way to do this is to apply the following command and manifest:
+```
+kubectl patch installation.operator.tigera.io default --type merge -p '{"spec":{"nodeMetricsPort":9091}}'
+```
+
 ## AKS Cluster Scaling
 
 When done with the cluster, you can shut it down:
