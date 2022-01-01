@@ -817,7 +817,11 @@ If you wish to restart your cluster with Calico Cloud, run the below command:
 az aks start --name nigelAKSCluster --resource-group nigelResourceGroup
 ```
 
-## Images for Private Repo:
+## Pull Images for Private Repo:
+Move Calico Enterprise container images to a private registry and configure Calico Enterprise to pull images from it:
+<br/>
+https://docs.tigera.io/getting-started/private-registry/private-registry-regular
+
 Add tigera-pull-secret into the namespace tigera-internal:
 ```
 kubectl create secret generic tigera-pull-secret --from-file=.dockerconfigjson=<pull-secrets.json> --type=kubernetes.io/dockerconfigjson -n tigera-internal
