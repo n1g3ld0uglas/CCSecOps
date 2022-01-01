@@ -816,3 +816,34 @@ If you wish to restart your cluster with Calico Cloud, run the below command:
 ```
 az aks start --name nigelAKSCluster --resource-group nigelResourceGroup
 ```
+
+## Images for Private Repo:
+Add tigera-pull-secret into the namespace tigera-internal:
+```
+kubectl create secret generic tigera-pull-secret --from-file=.dockerconfigjson=<pull-secrets.json> --type=kubernetes.io/dockerconfigjson -n tigera-internal
+```
+
+Apply the following manifest to create a namespace and RBAC for the honeypods:
+```
+kubectl apply -f https://docs.tigera.io/manifests/threatdef/honeypod/common.yaml 
+```
+
+#### IP Enumeration
+```
+kubectl apply -f https://docs.tigera.io/manifests/threatdef/honeypod/ip-enum.yaml 
+```
+
+#### Nginx Service
+```
+kubectl apply -f https://docs.tigera.io/manifests/threatdef/honeypod/expose-svc.yaml 
+```
+
+Verify the Honeypods are deployed:
+```
+kubectl get pods -n tigera-internal
+```
+
+And verify that global alerts are set for honeypods:
+```
+kubectl get globalalerts
+```
